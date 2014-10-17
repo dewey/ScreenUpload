@@ -1,4 +1,4 @@
-var scp = require('scp'),
+var scp = require('scp-custom'),
     sha1 = require('sha1'),
     fs = require('fs'),
     path = require('path'),
@@ -38,7 +38,7 @@ gaze('Screen\ Shot *.png', {
 
             // Upload file
             scp.send({
-                file: 'tmp/' + imageNameNew,
+                file: filepathNew,
                 user: scpUser,
                 host: scpHost,
                 port: scpPort,
