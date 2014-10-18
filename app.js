@@ -1,4 +1,4 @@
-var scp = require('scp-custom'),
+var scp = require('scp'),
     config = require('./config'),
     sha1 = require('sha1'),
     fs = require('fs'),
