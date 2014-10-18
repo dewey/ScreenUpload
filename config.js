@@ -9,6 +9,9 @@ config.install.cwd = __dirname;
 // Directory where screenshots are stored. That's where the script is watching for new screenshots.
 config.app.screenshotDirectory = process.env.HOME + '/Desktop';
 
+// Screenshot name we are looking for
+config.app.screenshotName = 'Screen\ Shot *.png';
+
 // Directory where all screenshots are copied to before uploading. They'll remain there.
 config.app.screenshotDirectoryArchive = __dirname + '/archive/'
 

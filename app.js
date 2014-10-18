@@ -1,4 +1,5 @@
 var scp = require('scp-custom'),
+    config = require('./config'),
     sha1 = require('sha1'),
     fs = require('fs'),
     path = require('path'),
@@ -6,18 +7,17 @@ var scp = require('scp-custom'),
     notifier = require('node-notifier'),
     gaze = require('gaze');
 
-// TODO: Should be moved to config file
-var screenshotDirectory = '/Users/philipp/Desktop/';
-var screenshotDirectoryArchive = __dirname + '/archive/'
-var scpUser = 'dewey';
-var scpHost = 'notmyhostna.me';
-var scpPort = '22';
-var scpRemotePath = '/var/www/img.notmyhostna.me/';
-var scpRemoteURL = 'https://img.notmyhostna.me/';
-// End of config
+var screenshotDirectory = config.app.screenshotDirectory;
+var screenshotDirectoryArchive = config.app.screenshotDirectoryArchive;
+var screenshotName = config.app.screenshotName;
+var scpUser = config.app.scpUser;
+var scpHost = config.app.scpHost;
+var scpPort = config.app.scpPort;
+var scpRemotePath = config.app.scpRemotePath;
+var scpRemoteURL = config.app.scpRemoteURL;
 
 // Watch provided path from config for new files matching the screenshot default name.
-gaze('Screen\ Shot *.png', {
+gaze(screenshotName, {
     cwd: screenshotDirectory
 }, function(err, watcher) {
     if (err) {
