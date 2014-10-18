@@ -1,7 +1,6 @@
 ![notification](https://img.notmyhostna.me/047df78a4eac436396d9f6b0957c0a8ddfc198b6.png)
 
 # ScreenUpload
-===
 
 A simple tool to automatically move, rename and upload screenshots from a specific location to a remote server via scp. Once successfully uploaded the image URL is copied to the clipboard.
 
@@ -10,15 +9,15 @@ A simple tool to automatically move, rename and upload screenshots from a specif
 
 Make sure you have Node.JS and NPM installed.
 
-** Clone the repository **
+**Clone the repository**
 
 `git clone https://github.com/dewey/ScreenUpload`
 
-** Install dependencies **
+**Install dependencies**
 
 Navigate into the cloned directory and run `npm install` to install all the dependencies.
 
-** Install the UserAgent **
+**Install the UserAgent**
 
 Install the UserAgent which will keep the process running in the background by running `node install.js`. This will create and move the `screenupload.plist` to `~/Library/LaunchAgents`.
 
@@ -35,11 +34,11 @@ It’s also possible to load/unload/start/stop LaunchAgents with the following c
     launchctl stop screenupload
     launchctl start screenupload
 
-** Check if process is running **
+**Check if process is running**
 
 If everything’s running your Activity Monitor should have a process called `ScreenUpload`.
 
-** Debugging **
+**Debugging**
 
 If there are any problems use Console.app to check `~/Library/Logs/ScreenUpload` for the error logs.
 
