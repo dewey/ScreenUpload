@@ -6,9 +6,9 @@ var scp = require('scp-custom'),
     notifier = require('node-notifier'),
     gaze = require('gaze');
 
-// Should be moved to config file
+// TODO: Should be moved to config file
 var screenshotDirectory = '/Users/philipp/Desktop/';
-var screenshotDirectoryArchive = '/Users/philipp/Documents/Developement/Node/ScreenUpload/tmp/'
+var screenshotDirectoryArchive = __dirname + '/archive/'
 var scpUser = 'dewey';
 var scpHost = 'notmyhostna.me';
 var scpPort = '22';
@@ -48,7 +48,10 @@ gaze('Screen\ Shot *.png', {
 
                     notifier.notify({
                         'title': 'ScreenUpload',
-                        'message': 'Upload finished.'
+                        'subtitle': 'Upload finished',
+                        'contentImage': filepathNew,
+                        'message': 'The URL is now in your clipboard.',
+                        'open': 'file://' + __dirname + '/archive/' + imageNameNew
                     });
                 }
             });
