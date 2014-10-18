@@ -1,16 +1,27 @@
 {
-  "name": "ScreenUpload",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node app.js"
-  },
-  "dependencies": {
-    "copy-paste": "^1.0.0",
-    "gaze": "^0.6.4",
-    "node-mac": "dewey/node-mac",
-    "node-notifier": "^4.0.2",
-    "scp": "0.0.3",
-    "sha1": "^1.1.0"
-  }
+    "name": "ScreenUpload",
+    "description": "A simple screenshot auto-uploader.",
+    "version": "0.0.1",
+    "maintainers": [{
+        "name": "dewey",
+        "email": "mail@notmyhostna.me",
+        "web": "https://notmyhostna.me"
+    }],
+    "private": true,
+    "repositories": [{
+        "type": "git",
+        "url": "git://github.com/dewey/ScreenUpload.git"
+    }],
+    "homepage": "https://github.com/dewey/ScreenUpload",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "copy-paste": "^1.0.0",
+        "gaze": "^0.6.4",
+        "node-mac": "dewey/node-mac",
+        "node-notifier": "^4.0.2",
+        "scp": "0.0.3",
+        "sha1": "^1.1.0"
+    }
 }
