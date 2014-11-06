@@ -5,6 +5,8 @@ var scp = require('scp'),
     path = require('path'),
     clipboard = require("copy-paste").global(),
     notifier = require('node-notifier'),
+    flatfile = require('flat-file-db'),
+    moment = require('moment'),
     gaze = require('gaze');
 
 var screenshotDirectory = config.app.screenshotDirectory;
@@ -15,6 +17,9 @@ var scpHost = config.app.scpHost;
 var scpPort = config.app.scpPort;
 var scpRemotePath = config.app.scpRemotePath;
 var scpRemoteURL = config.app.scpRemoteURL;
+if (config.app.archive.enabled) {
+    var db = flatfile.sync(config.app.archive.db);
+}
 
 // Watch provided path from config for new files matching the screenshot default name.
 gaze(screenshotName, {
@@ -43,6 +48,16 @@ gaze(screenshotName, {
                 if (err) {
                     console.log(err);
                 } else {
+                    // Write to DB if feature enabled in config
+                    if (config.app.archive.enabled) {
+                        var timestamp = moment().unix();
+                        db.put(imageName, {
+                            filename: imageNameNew,
+                            url: imageRemoteURL,
+                            date: timestamp
+                        });
+                    }
+
                     // Copy to clipboard
                     copy(imageRemoteURL);
 
@@ -53,6 +68,12 @@ gaze(screenshotName, {
                         'message': 'The URL is now in your clipboard.',
                         'open': 'file://' + __dirname + '/archive/' + imageNameNew
                     });
+
+                    // Log to console to make it easier to retrieve past uploads (if enabled in the config file)
+                    if (config.app.archive.enabled && config.app.archive.logging) {
+                        var upload = db.get(imageName);
+                        console.log(moment.unix(upload.date).format("dddd, MMMM Do YYYY, h:mm:ss a") + " - " + upload.url);
+                    }
                 }
             });
         });
