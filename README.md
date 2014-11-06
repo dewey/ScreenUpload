@@ -2,10 +2,16 @@
 
 # ScreenUpload
 
-A simple tool to automatically move, rename and upload screenshots from a specific location to a remote server via scp. Once successfully uploaded the image URL is copied to the clipboard.
+A simple tool to automatically move, rename and upload screenshots from a specific location to a remote server via scp. Once successfully uploaded the image URL is copied to the clipboard and the metadata stored in a local database.
+
+# Features
+- Automatically uploads screenshots to a remote server with scp
+- Moves screenshots from the default screenshot location (Mac: ~/Desktop) to a predefined archive directory
+- Copies URL to clipboard
+- (Optional) Keeps a database file with metadata (filename, URL, timestamp)
+- (Optional) Logs uploaded screenshots to console to make accessing the history easier.
 
 # Installation
-
 
 Make sure you have Node.JS and NPM installed.
 
@@ -16,6 +22,16 @@ Make sure you have Node.JS and NPM installed.
 **Install dependencies**
 
 Navigate into the cloned directory and run `npm install` to install all the dependencies.
+
+# Quick Installation
+
+If you just want to keep it running in a terminal/screen/tmux start it with `node app.js` and don't close the shell. Per default logging and archiving is enabled, if you want to change that edit `config.js`. All the config parameters are explained there.
+
+In case logging & archiving is enabled it'll look like this:
+
+![notification](https://i.imgur.com/VErKWU0.gif)
+
+# (Optional) Installation with LaunchAgent running in the background
 
 **Install the UserAgent**
 
