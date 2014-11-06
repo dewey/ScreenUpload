@@ -7,6 +7,7 @@ var scp = require('scp'),
     notifier = require('node-notifier'),
     flatfile = require('flat-file-db'),
     moment = require('moment'),
+    colors = require('colors/safe'),
     gaze = require('gaze');
 
 var screenshotDirectory = config.app.screenshotDirectory;
@@ -72,7 +73,7 @@ gaze(screenshotName, {
                     // Log to console to make it easier to retrieve past uploads (if enabled in the config file)
                     if (config.app.archive.enabled && config.app.archive.logging) {
                         var upload = db.get(imageName);
-                        console.log(moment.unix(upload.date).format("dddd, MMMM Do YYYY, h:mm:ss a") + " - " + upload.url);
+                        console.log(colors.green(upload.url) + " - " + moment.unix(upload.date).format("dddd, MMMM Do YYYY, h:mm:ss a"));
                     }
                 }
             });
