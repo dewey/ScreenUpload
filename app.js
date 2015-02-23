@@ -78,5 +78,9 @@ gaze(screenshotName, {
                 }
             });
         });
+        // Catching errors
+        this.on('error', function(error) {
+            console.log("There was an error while watching: " + screenshotDirectory);
+        })
     }
 });

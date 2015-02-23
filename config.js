@@ -42,6 +42,6 @@ config.app.archive.logging = true;
 
 // The database file where you want to store the data + filename of the screenshot.
 // Will be ignored if archive is disabled
-config.app.archive.db = 'archive.db';
+config.app.archive.db = __dirname + '/archive.db';
 
 module.exports = config;
