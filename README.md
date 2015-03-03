@@ -13,7 +13,7 @@ A simple tool to automatically move, rename and upload screenshots from a specif
 
 # Installation
 
-Make sure you have Node.JS and NPM installed.
+Make sure you have Node.JS (0.10.x for now) and NPM installed. If you are on a Mac and you want to use the notification center integration install [terminal-notifier](https://github.com/alloy/terminal-notifier). The recommended way is to do that with the help of homebrew.
 
 **Clone the repository**
 
