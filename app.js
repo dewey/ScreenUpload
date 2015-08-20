@@ -8,7 +8,8 @@ var scp = require('scp'),
     flatfile = require('flat-file-db'),
     moment = require('moment'),
     colors = require('colors/safe'),
-    gaze = require('gaze');
+    glob = require("glob"),
+    chokidar = require('chokidar');
 
 var screenshotDirectory = config.app.screenshotDirectory;
 var screenshotDirectoryArchive = config.app.screenshotDirectoryArchive;
@@ -18,25 +19,31 @@ var scpHost = config.app.scpHost;
 var scpPort = config.app.scpPort;
 var scpRemotePath = config.app.scpRemotePath;
 var scpRemoteURL = config.app.scpRemoteURL;
+
 if (config.app.archive.enabled) {
     var db = flatfile.sync(config.app.archive.db);
 }
 
 // Watch provided path from config for new files matching the screenshot default name.
-gaze(screenshotName, {
-    cwd: screenshotDirectory
-}, function(err, watcher) {
-    if (err) {
-        console.log(err)
-    } else {
-        // Watch for 'added' event
-        this.on('added', function(filepath) {
+var watcher = chokidar.watch(screenshotDirectory, {
+    ignored: /[\/\\]\./,
+    ignoreInitial: true,
+    persistent: true
+});
+
+// Watch for 'added' event
+watcher.on('add', function(matchedFilePath) {
+    glob(screenshotName, function(err, files) {
+        if (err) {
+            console.log(err)
+        } else {
             // Create temp file name for uploading and move to archive.
-            var imageName = sha1(filepath);
-            var imageNameNew = imageName + path.extname(filepath);
+            var filename = path.basename(matchedFilePath);
+            var imageName = sha1(filename);
+            var imageNameNew = imageName + path.extname(matchedFilePath);
             var filepathNew = screenshotDirectoryArchive + imageNameNew;
             var imageRemoteURL = scpRemoteURL + imageNameNew;
-            fs.renameSync(filepath, filepathNew)
+            fs.renameSync(matchedFilePath, filepathNew);
 
             // Upload file
             scp.send({
@@ -77,10 +84,11 @@ gaze(screenshotName, {
                     }
                 }
             });
-        });
-        // Catching errors
-        this.on('error', function(error) {
-            console.log("There was an error while watching: " + screenshotDirectory);
-        })
-    }
-});
+        }
+    })
+})
+
+// Catching errors
+watcher.on('error', function(error) {
+    console.log("There was an error while watching: " + screenshotDirectory);
+})

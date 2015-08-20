@@ -27,7 +27,7 @@ config.app.scpPort = '22';
 
 // The port where the image will be stored on the remote server. Make sure the aforementioned
 // user has write permissions to that directory.
-config.app.scpRemotePath = '/var/www/img.notmyhostna.me/';
+config.app.scpRemotePath = '/home/dewey/public_www/img.notmyhostna.me/';
 
 // The URL which is mapped to the scpRemotePath
 config.app.scpRemoteURL = 'https://img.notmyhostna.me/';
