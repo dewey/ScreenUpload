@@ -21,7 +21,6 @@
         "colors": "1.0.3",
         "copy-paste": "latest",
         "flat-file-db": "latest",
-        "glob": "latest",
         "moment": "latest",
         "node-notifier": "latest",
         "scp": "latest",
